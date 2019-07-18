@@ -1,0 +1,24 @@
+{
+  "name": "yatjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen": "antlr4ts ./src/yatjs.g4 -o ./src/lr",
+    "start": "tsc --watch",
+    "build": "tsc"
+  },
+  "types": "./dist/index.d.ts",
+  "keywords": [],
+  "author": "yonghao.wang",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^12.6.8",
+    "antlr4ts-cli": "^0.5.0-alpha.3",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "antlr4ts": "^0.5.0-alpha.3"
+  }
+}

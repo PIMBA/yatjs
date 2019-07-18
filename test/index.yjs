@@ -1,0 +1,16 @@
+const ID = (X) => X;
+
+const A = 1;
+const B = 2;
+const ADD = (A, B) => A + B;
+
+/**
+ * ADD 3 TO A + B
+ */
+const ADD3 = (A, B) => {
+  const C = 3;
+  return () => A + B + C;
+}
+
+ADD3(A, B)();
+
