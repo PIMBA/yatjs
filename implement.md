@@ -5,17 +5,18 @@
   1. number
 正如设计的时候所说，我们的类型系统非常简单，现阶段只支持number类型。所以我们可以定义：
 ```ts
-type RightResult = number;
+type RightValue = number;
 
-type ProgramResult = RightResult | void;
+type ProgramResult = RightValue;
 ```
-为什么`ProgramResult`需要一个`void`？因为我们的程序有些情况下并不返回值，例如statement就不返回值。
 
-## 声明 Visitor
+## 实现 Visitor
+
+### 声明
 ```ts
 class Visitor
-  extends AbstractParseTreeVisitor<ProgramResult>
-  implements IVisitor<ProgramResult> 
+  extends AbstractParseTreeVisitor<RightValue>
+  implements IVisitor<RightValue> 
 ```
 继承`AbstractParseTreeVisitor`能够让我们有能力调用一些默认行为。
 
@@ -48,13 +49,13 @@ visitDeclaration(ctx: DeclarationContext) {
 
 我们现在的作用域的作用就是存储已经生成的变量，所以它非常简单。
 ```ts
-interface IScope {
-  define(key: string, value: RightResult): boolean;
-  get(key: string): RightResult?
+interface IScope<RightValue> {
+  define(key: string, value: RightValue): boolean;
+  get(key: string): RightValue;
 }
 ```
 它有两个方法，一个是 `define`, 它向作用域里塞一个新的符号，如果这个符号已经定义过了，那就返回`false`。
-第二个方法是`get`,它向作用域请求一个值，如果不存在，返回`undefined`。
+第二个方法是`get`,它向作用域请求一个值。
 
 作用域就简单的实现这个接口就好啦。
 
@@ -66,6 +67,41 @@ private scope: IScope = new Scope();
 ...
 visitDeclaration(ctx: DeclarationContext) {
   ...
-  this.scope.define
+  this.scope.define(id, value);
 }
 ```
+
+这样，我们右边表达式的值就已经定义好了。
+
+### 处理表达式
+
+我们接下来要处理的语句是表达式：
+```.g4
+expression
+  : expression OP expression
+  | expression QU expression ':' expression
+  | '(' expression ')'
+  | ID
+  | NUMBER
+  ;
+```
+这里需要将所有的情况分类讨论，但因为实现非常简单，所以不贴代码了：
+
+1. 有 OP 的情况下，这是一个计算：
+  先得到第一个表达式的值，然后得到第二个表达式。最后把两个表达式的值按 OP 结合起来，返回。
+2. 有 QU 的情况下，这是一个三目表达式：
+  先得到都一个表达式的值，如果不为 0，计算并返回第一个表达式的值，否则计算并返回第二个的值。
+3. 有括号的情况下，返回括号内的表达式的值。
+4. 如果表达式是一个 ID，从 scope 里取出一个 ID 的值并且返回。
+5. 如果表达式是一个 NUMBER 字面量，返回这个字面量的真实值。
+
+
+## 输出
+
+至此我们的语言已经基本上实现了！但这个语言没有任何用处，因为它不能和外界有沟通。
+有一个简单的办法可以将计算的结果输出到外界，那就是让visitor默认返回最后一个语句的返回值。
+
+为此我们需要定义`visitProgram`, `visitvisitStatement`, 并且将每一个statement的返回存在一个变量里，这样当外界在访问我们的
+`program`的时候，就能拿到最后一个表达式的返回值啦。
+
+我们还可以为每一个类型定义一个`toString()`, 这样在控制台上打印的时候调用一下这个方法能够简化输出。
