@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "yjs": "./dist/cmd.js"
+    "yatjs": "./dist/cli.js"
   },
   "scripts": {
-    "test": "node ./index.js",
+    "test": "yatjs ./test/index.yjs",
     "gen": "antlr4ts ./src/yatjs.g4 -visitor -o ./src/lr",
     "start": "tsc --watch",
     "build": "tsc"

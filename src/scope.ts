@@ -15,10 +15,10 @@ export class Scope<T> implements IScope<T>{
     return this;
   }
 
-  get(key: string): T | undefined {
-    if (this.current.has(key)) return this.current.get(key);
-    if (this.parent) return this.parent.get(key);
-    return undefined;
+  get(key: string, defaultValue: T): T {
+    if (this.current.has(key)) return this.current.get(key) || defaultValue;
+    if (this.parent) return this.parent.get(key, defaultValue);
+    return defaultValue;
   }
   has(key: string): boolean {
     if (this.current.has(key)) return true;

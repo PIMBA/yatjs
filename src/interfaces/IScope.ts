@@ -5,7 +5,7 @@ export interface IScope<TResult>{
   exit: () => IScope<TResult> | undefined;
   
   define: (key: string, value: TResult) => this;
-  get: (key: string) => TResult | undefined;
+  get: (key: string, defualtValue: TResult) => TResult;
   has: (key: string) => boolean;
   set: (key: string, value: TResult) => this;
 }
