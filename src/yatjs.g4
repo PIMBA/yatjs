@@ -12,8 +12,8 @@ declaration
   : 'const' ID '=' expression
   ;
 
-param_list: 
-  | param_list ',' ID
+param_list
+  :param_list ',' ID
   | ID
   ;
 
@@ -22,26 +22,21 @@ return_statement
   ;
 
 expression
-  : expression OP expression
-  | expression '?' expression ':' expression
-  | '(' expression ')'
-  | function_call
-  | function_declaration
-  | ID
-  | NUMBER
-  ;
-
-function_declaration
-  : '(' param_list ')' '=>' function_body
+  : '(' expression ')' #brackets_expression
+  | expression '(' expression_list? ')' #function_call
+  | expression '*' expression #mul_expression
+  | expression '/' expression #div_expression
+  | expression '+' expression #add_expression
+  | expression '-' expression #sub_expression
+  | expression '?' expression ':' expression #three_expression
+  | '(' param_list? ')' '=>' function_body #function_declaration
+  | ID #id_expression
+  | NUMBER #number_expression
   ;
 
 function_body
   : '{' statement* return_statement? '}'
   | expression
-  ;
-
-function_call
-  : ID '(' expression_list ')'
   ;
 
 expression_list
@@ -50,7 +45,6 @@ expression_list
   ;
 
 // Lexer
-
 OP: '+' | '-' | '*' | '/'; // + - * /
 ID : [A-Z_]+; // 变量
 NUMBER : [1-9][0-9]*|[0]|([0-9]+[.][0-9]+) ; // 数字 

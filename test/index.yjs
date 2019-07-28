@@ -1,16 +1,8 @@
-const ID = (X) => X;
+const FO = () => {
+  const A = 3;
+  return () => A;
+};
+FO()();
 
-const A = 1;
-const B = 2;
-const ADD = (A, B) => A + B;
-
-/**
- * ADD 3 TO A + B
- */
-const ADD3 = (A, B) => {
-  const C = 3;
-  return () => A + B + C;
-}
-
-ADD3(A, B)();
-
+// const MUL = (X) => X - 1 ? X * MUL(X - 1) : 1;
+// MUL(10);

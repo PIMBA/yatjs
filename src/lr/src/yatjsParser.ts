@@ -24,6 +24,8 @@ import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
 import * as Utils from "antlr4ts/misc/Utils";
 
 import { yatjsListener } from "./yatjsListener";
+import { yatjsVisitor } from "./yatjsVisitor";
+
 
 export class yatjsParser extends Parser {
 	public static readonly T__0 = 1;
@@ -38,37 +40,39 @@ export class yatjsParser extends Parser {
 	public static readonly T__9 = 10;
 	public static readonly T__10 = 11;
 	public static readonly T__11 = 12;
-	public static readonly OP = 13;
-	public static readonly ID = 14;
-	public static readonly NUMBER = 15;
-	public static readonly LINE_COMMENT = 16;
-	public static readonly COMMENT = 17;
-	public static readonly WS = 18;
+	public static readonly T__12 = 13;
+	public static readonly T__13 = 14;
+	public static readonly T__14 = 15;
+	public static readonly T__15 = 16;
+	public static readonly OP = 17;
+	public static readonly ID = 18;
+	public static readonly NUMBER = 19;
+	public static readonly LINE_COMMENT = 20;
+	public static readonly COMMENT = 21;
+	public static readonly WS = 22;
 	public static readonly RULE_program = 0;
 	public static readonly RULE_statement = 1;
 	public static readonly RULE_declaration = 2;
 	public static readonly RULE_param_list = 3;
 	public static readonly RULE_return_statement = 4;
 	public static readonly RULE_expression = 5;
-	public static readonly RULE_function_declaration = 6;
-	public static readonly RULE_function_body = 7;
-	public static readonly RULE_function_call = 8;
-	public static readonly RULE_expression_list = 9;
+	public static readonly RULE_function_body = 6;
+	public static readonly RULE_expression_list = 7;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
 		"program", "statement", "declaration", "param_list", "return_statement", 
-		"expression", "function_declaration", "function_body", "function_call", 
-		"expression_list",
+		"expression", "function_body", "expression_list",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
-		undefined, "';'", "'const'", "'='", "','", "'return'", "'?'", "':'", "'('", 
-		"')'", "'=>'", "'{'", "'}'",
+		undefined, "';'", "'const'", "'='", "','", "'return'", "'('", "')'", "'*'", 
+		"'/'", "'+'", "'-'", "'?'", "':'", "'=>'", "'{'", "'}'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
 		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
-		undefined, undefined, undefined, undefined, undefined, undefined, "OP", 
-		"ID", "NUMBER", "LINE_COMMENT", "COMMENT", "WS",
+		undefined, undefined, undefined, undefined, undefined, undefined, undefined, 
+		undefined, undefined, undefined, "OP", "ID", "NUMBER", "LINE_COMMENT", 
+		"COMMENT", "WS",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(yatjsParser._LITERAL_NAMES, yatjsParser._SYMBOLIC_NAMES, []);
 
@@ -100,20 +104,20 @@ export class yatjsParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 21;
+			this.state = 17;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			do {
 				{
 				{
-				this.state = 20;
+				this.state = 16;
 				this.statement();
 				}
 				}
-				this.state = 23;
+				this.state = 19;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__1) | (1 << yatjsParser.T__7) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0));
+			} while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__1) | (1 << yatjsParser.T__5) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0));
 			}
 		}
 		catch (re) {
@@ -137,27 +141,27 @@ export class yatjsParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 27;
+			this.state = 23;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case yatjsParser.T__1:
 				{
-				this.state = 25;
+				this.state = 21;
 				this.declaration();
 				}
 				break;
-			case yatjsParser.T__7:
+			case yatjsParser.T__5:
 			case yatjsParser.ID:
 			case yatjsParser.NUMBER:
 				{
-				this.state = 26;
+				this.state = 22;
 				this.expression(0);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			this.state = 29;
+			this.state = 25;
 			this.match(yatjsParser.T__0);
 			}
 		}
@@ -182,13 +186,13 @@ export class yatjsParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 31;
+			this.state = 27;
 			this.match(yatjsParser.T__1);
-			this.state = 32;
+			this.state = 28;
 			this.match(yatjsParser.ID);
-			this.state = 33;
+			this.state = 29;
 			this.match(yatjsParser.T__2);
-			this.state = 34;
+			this.state = 30;
 			this.expression(0);
 			}
 		}
@@ -225,25 +229,14 @@ export class yatjsParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 38;
-			this._errHandler.sync(this);
-			switch ( this.interpreter.adaptivePredict(this._input, 2, this._ctx) ) {
-			case 1:
-				{
-				}
-				break;
-
-			case 2:
-				{
-				this.state = 37;
-				this.match(yatjsParser.ID);
-				}
-				break;
+			{
+			this.state = 33;
+			this.match(yatjsParser.ID);
 			}
 			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 45;
+			this.state = 40;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 3, this._ctx);
+			_alt = this.interpreter.adaptivePredict(this._input, 2, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					if (this._parseListeners != null) {
@@ -254,20 +247,20 @@ export class yatjsParser extends Parser {
 					{
 					_localctx = new Param_listContext(_parentctx, _parentState);
 					this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_param_list);
-					this.state = 40;
+					this.state = 35;
 					if (!(this.precpred(this._ctx, 2))) {
 						throw new FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 					}
-					this.state = 41;
+					this.state = 36;
 					this.match(yatjsParser.T__3);
-					this.state = 42;
+					this.state = 37;
 					this.match(yatjsParser.ID);
 					}
 					}
 				}
-				this.state = 47;
+				this.state = 42;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 3, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 2, this._ctx);
 			}
 			}
 		}
@@ -293,19 +286,19 @@ export class yatjsParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 48;
+			this.state = 43;
 			this.match(yatjsParser.T__4);
-			this.state = 50;
+			this.state = 45;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__7) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0)) {
+			if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__5) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0)) {
 				{
-				this.state = 49;
+				this.state = 44;
 				this.expression(0);
 				}
 			}
 
-			this.state = 52;
+			this.state = 47;
 			this.match(yatjsParser.T__0);
 			}
 		}
@@ -338,6 +331,7 @@ export class yatjsParser extends Parser {
 		let _prevctx: ExpressionContext = _localctx;
 		let _startState: number = 10;
 		this.enterRecursionRule(_localctx, 10, yatjsParser.RULE_expression, _p);
+		let _la: number;
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
@@ -347,47 +341,69 @@ export class yatjsParser extends Parser {
 			switch ( this.interpreter.adaptivePredict(this._input, 5, this._ctx) ) {
 			case 1:
 				{
-				this.state = 55;
-				this.match(yatjsParser.T__7);
-				this.state = 56;
+				_localctx = new Brackets_expressionContext(_localctx);
+				this._ctx = _localctx;
+				_prevctx = _localctx;
+
+				this.state = 50;
+				this.match(yatjsParser.T__5);
+				this.state = 51;
 				this.expression(0);
-				this.state = 57;
-				this.match(yatjsParser.T__8);
+				this.state = 52;
+				this.match(yatjsParser.T__6);
 				}
 				break;
 
 			case 2:
 				{
+				_localctx = new Function_declarationContext(_localctx);
+				this._ctx = _localctx;
+				_prevctx = _localctx;
+				this.state = 54;
+				this.match(yatjsParser.T__5);
+				this.state = 56;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+				if (_la === yatjsParser.ID) {
+					{
+					this.state = 55;
+					this.param_list(0);
+					}
+				}
+
+				this.state = 58;
+				this.match(yatjsParser.T__6);
 				this.state = 59;
-				this.function_call();
+				this.match(yatjsParser.T__13);
+				this.state = 60;
+				this.function_body();
 				}
 				break;
 
 			case 3:
 				{
-				this.state = 60;
-				this.function_declaration();
-				}
-				break;
-
-			case 4:
-				{
+				_localctx = new Id_expressionContext(_localctx);
+				this._ctx = _localctx;
+				_prevctx = _localctx;
 				this.state = 61;
 				this.match(yatjsParser.ID);
 				}
 				break;
 
-			case 5:
+			case 4:
 				{
+				_localctx = new Number_expressionContext(_localctx);
+				this._ctx = _localctx;
+				_prevctx = _localctx;
 				this.state = 62;
 				this.match(yatjsParser.NUMBER);
 				}
 				break;
 			}
 			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 76;
+			this.state = 91;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 7, this._ctx);
+			_alt = this.interpreter.adaptivePredict(this._input, 8, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					if (this._parseListeners != null) {
@@ -395,48 +411,118 @@ export class yatjsParser extends Parser {
 					}
 					_prevctx = _localctx;
 					{
-					this.state = 74;
+					this.state = 89;
 					this._errHandler.sync(this);
-					switch ( this.interpreter.adaptivePredict(this._input, 6, this._ctx) ) {
+					switch ( this.interpreter.adaptivePredict(this._input, 7, this._ctx) ) {
 					case 1:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new Mul_expressionContext(new ExpressionContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression);
 						this.state = 65;
-						if (!(this.precpred(this._ctx, 7))) {
-							throw new FailedPredicateException(this, "this.precpred(this._ctx, 7)");
+						if (!(this.precpred(this._ctx, 8))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 8)");
 						}
 						this.state = 66;
-						this.match(yatjsParser.OP);
+						this.match(yatjsParser.T__7);
 						this.state = 67;
-						this.expression(8);
+						this.expression(9);
 						}
 						break;
 
 					case 2:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new Div_expressionContext(new ExpressionContext(_parentctx, _parentState));
 						this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression);
 						this.state = 68;
+						if (!(this.precpred(this._ctx, 7))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 7)");
+						}
+						this.state = 69;
+						this.match(yatjsParser.T__8);
+						this.state = 70;
+						this.expression(8);
+						}
+						break;
+
+					case 3:
+						{
+						_localctx = new Add_expressionContext(new ExpressionContext(_parentctx, _parentState));
+						this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression);
+						this.state = 71;
 						if (!(this.precpred(this._ctx, 6))) {
 							throw new FailedPredicateException(this, "this.precpred(this._ctx, 6)");
 						}
-						this.state = 69;
-						this.match(yatjsParser.T__5);
-						this.state = 70;
-						this.expression(0);
-						this.state = 71;
-						this.match(yatjsParser.T__6);
 						this.state = 72;
+						this.match(yatjsParser.T__9);
+						this.state = 73;
 						this.expression(7);
+						}
+						break;
+
+					case 4:
+						{
+						_localctx = new Sub_expressionContext(new ExpressionContext(_parentctx, _parentState));
+						this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression);
+						this.state = 74;
+						if (!(this.precpred(this._ctx, 5))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 5)");
+						}
+						this.state = 75;
+						this.match(yatjsParser.T__10);
+						this.state = 76;
+						this.expression(6);
+						}
+						break;
+
+					case 5:
+						{
+						_localctx = new Three_expressionContext(new ExpressionContext(_parentctx, _parentState));
+						this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression);
+						this.state = 77;
+						if (!(this.precpred(this._ctx, 4))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 4)");
+						}
+						this.state = 78;
+						this.match(yatjsParser.T__11);
+						this.state = 79;
+						this.expression(0);
+						this.state = 80;
+						this.match(yatjsParser.T__12);
+						this.state = 81;
+						this.expression(5);
+						}
+						break;
+
+					case 6:
+						{
+						_localctx = new Function_callContext(new ExpressionContext(_parentctx, _parentState));
+						this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression);
+						this.state = 83;
+						if (!(this.precpred(this._ctx, 9))) {
+							throw new FailedPredicateException(this, "this.precpred(this._ctx, 9)");
+						}
+						this.state = 84;
+						this.match(yatjsParser.T__5);
+						this.state = 86;
+						this._errHandler.sync(this);
+						_la = this._input.LA(1);
+						if ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__5) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0)) {
+							{
+							this.state = 85;
+							this.expression_list(0);
+							}
+						}
+
+						this.state = 88;
+						this.match(yatjsParser.T__6);
 						}
 						break;
 					}
 					}
 				}
-				this.state = 78;
+				this.state = 93;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 7, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 8, this._ctx);
 			}
 			}
 		}
@@ -455,122 +541,58 @@ export class yatjsParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public function_declaration(): Function_declarationContext {
-		let _localctx: Function_declarationContext = new Function_declarationContext(this._ctx, this.state);
-		this.enterRule(_localctx, 12, yatjsParser.RULE_function_declaration);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 79;
-			this.match(yatjsParser.T__7);
-			this.state = 80;
-			this.param_list(0);
-			this.state = 81;
-			this.match(yatjsParser.T__8);
-			this.state = 82;
-			this.match(yatjsParser.T__9);
-			this.state = 83;
-			this.function_body();
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
 	public function_body(): Function_bodyContext {
 		let _localctx: Function_bodyContext = new Function_bodyContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, yatjsParser.RULE_function_body);
+		this.enterRule(_localctx, 12, yatjsParser.RULE_function_body);
 		let _la: number;
 		try {
-			this.state = 97;
+			this.state = 106;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case yatjsParser.T__10:
+			case yatjsParser.T__14:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 85;
-				this.match(yatjsParser.T__10);
-				this.state = 89;
+				this.state = 94;
+				this.match(yatjsParser.T__14);
+				this.state = 98;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
-				while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__1) | (1 << yatjsParser.T__7) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0)) {
+				while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << yatjsParser.T__1) | (1 << yatjsParser.T__5) | (1 << yatjsParser.ID) | (1 << yatjsParser.NUMBER))) !== 0)) {
 					{
 					{
-					this.state = 86;
+					this.state = 95;
 					this.statement();
 					}
 					}
-					this.state = 91;
+					this.state = 100;
 					this._errHandler.sync(this);
 					_la = this._input.LA(1);
 				}
-				this.state = 93;
+				this.state = 102;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 				if (_la === yatjsParser.T__4) {
 					{
-					this.state = 92;
+					this.state = 101;
 					this.return_statement();
 					}
 				}
 
-				this.state = 95;
-				this.match(yatjsParser.T__11);
+				this.state = 104;
+				this.match(yatjsParser.T__15);
 				}
 				break;
-			case yatjsParser.T__7:
+			case yatjsParser.T__5:
 			case yatjsParser.ID:
 			case yatjsParser.NUMBER:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 96;
+				this.state = 105;
 				this.expression(0);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public function_call(): Function_callContext {
-		let _localctx: Function_callContext = new Function_callContext(this._ctx, this.state);
-		this.enterRule(_localctx, 16, yatjsParser.RULE_function_call);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 99;
-			this.match(yatjsParser.ID);
-			this.state = 100;
-			this.match(yatjsParser.T__7);
-			this.state = 101;
-			this.expression_list(0);
-			this.state = 102;
-			this.match(yatjsParser.T__8);
 			}
 		}
 		catch (re) {
@@ -600,20 +622,20 @@ export class yatjsParser extends Parser {
 		let _parentState: number = this.state;
 		let _localctx: Expression_listContext = new Expression_listContext(this._ctx, _parentState);
 		let _prevctx: Expression_listContext = _localctx;
-		let _startState: number = 18;
-		this.enterRecursionRule(_localctx, 18, yatjsParser.RULE_expression_list, _p);
+		let _startState: number = 14;
+		this.enterRecursionRule(_localctx, 14, yatjsParser.RULE_expression_list, _p);
 		try {
 			let _alt: number;
 			this.enterOuterAlt(_localctx, 1);
 			{
 			{
-			this.state = 105;
+			this.state = 109;
 			this.expression(0);
 			}
 			this._ctx._stop = this._input.tryLT(-1);
-			this.state = 112;
+			this.state = 116;
 			this._errHandler.sync(this);
-			_alt = this.interpreter.adaptivePredict(this._input, 11, this._ctx);
+			_alt = this.interpreter.adaptivePredict(this._input, 12, this._ctx);
 			while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER) {
 				if (_alt === 1) {
 					if (this._parseListeners != null) {
@@ -624,20 +646,20 @@ export class yatjsParser extends Parser {
 					{
 					_localctx = new Expression_listContext(_parentctx, _parentState);
 					this.pushNewRecursionContext(_localctx, _startState, yatjsParser.RULE_expression_list);
-					this.state = 107;
+					this.state = 111;
 					if (!(this.precpred(this._ctx, 2))) {
 						throw new FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 					}
-					this.state = 108;
+					this.state = 112;
 					this.match(yatjsParser.T__3);
-					this.state = 109;
+					this.state = 113;
 					this.expression(0);
 					}
 					}
 				}
-				this.state = 114;
+				this.state = 118;
 				this._errHandler.sync(this);
-				_alt = this.interpreter.adaptivePredict(this._input, 11, this._ctx);
+				_alt = this.interpreter.adaptivePredict(this._input, 12, this._ctx);
 			}
 			}
 		}
@@ -664,7 +686,7 @@ export class yatjsParser extends Parser {
 		case 5:
 			return this.expression_sempred(_localctx as ExpressionContext, predIndex);
 
-		case 9:
+		case 7:
 			return this.expression_list_sempred(_localctx as Expression_listContext, predIndex);
 		}
 		return true;
@@ -679,68 +701,83 @@ export class yatjsParser extends Parser {
 	private expression_sempred(_localctx: ExpressionContext, predIndex: number): boolean {
 		switch (predIndex) {
 		case 1:
-			return this.precpred(this._ctx, 7);
+			return this.precpred(this._ctx, 8);
 
 		case 2:
+			return this.precpred(this._ctx, 7);
+
+		case 3:
 			return this.precpred(this._ctx, 6);
+
+		case 4:
+			return this.precpred(this._ctx, 5);
+
+		case 5:
+			return this.precpred(this._ctx, 4);
+
+		case 6:
+			return this.precpred(this._ctx, 9);
 		}
 		return true;
 	}
 	private expression_list_sempred(_localctx: Expression_listContext, predIndex: number): boolean {
 		switch (predIndex) {
-		case 3:
+		case 7:
 			return this.precpred(this._ctx, 2);
 		}
 		return true;
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x14v\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x18z\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
-		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x04\v\t\v\x03\x02\x06\x02\x18\n\x02" +
-		"\r\x02\x0E\x02\x19\x03\x03\x03\x03\x05\x03\x1E\n\x03\x03\x03\x03\x03\x03" +
-		"\x04\x03\x04\x03\x04\x03\x04\x03\x04\x03\x05\x03\x05\x05\x05)\n\x05\x03" +
-		"\x05\x03\x05\x03\x05\x07\x05.\n\x05\f\x05\x0E\x051\v\x05\x03\x06\x03\x06" +
-		"\x05\x065\n\x06\x03\x06\x03\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07" +
-		"\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07B\n\x07\x03\x07\x03\x07\x03\x07" +
-		"\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x07\x07M\n\x07\f\x07" +
-		"\x0E\x07P\v\x07\x03\b\x03\b\x03\b\x03\b\x03\b\x03\b\x03\t\x03\t\x07\t" +
-		"Z\n\t\f\t\x0E\t]\v\t\x03\t\x05\t`\n\t\x03\t\x03\t\x05\td\n\t\x03\n\x03" +
-		"\n\x03\n\x03\n\x03\n\x03\v\x03\v\x03\v\x03\v\x03\v\x03\v\x07\vq\n\v\f" +
-		"\v\x0E\vt\v\v\x03\v\x02\x02\x05\b\f\x14\f\x02\x02\x04\x02\x06\x02\b\x02" +
-		"\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x14\x02\x02\x02\x02z\x02\x17\x03" +
-		"\x02\x02\x02\x04\x1D\x03\x02\x02\x02\x06!\x03\x02\x02\x02\b(\x03\x02\x02" +
-		"\x02\n2\x03\x02\x02\x02\fA\x03\x02\x02\x02\x0EQ\x03\x02\x02\x02\x10c\x03" +
-		"\x02\x02\x02\x12e\x03\x02\x02\x02\x14j\x03\x02\x02\x02\x16\x18\x05\x04" +
-		"\x03\x02\x17\x16\x03\x02\x02\x02\x18\x19\x03\x02\x02\x02\x19\x17\x03\x02" +
-		"\x02\x02\x19\x1A\x03\x02\x02\x02\x1A\x03\x03\x02\x02\x02\x1B\x1E\x05\x06" +
-		"\x04\x02\x1C\x1E\x05\f\x07\x02\x1D\x1B\x03\x02\x02\x02\x1D\x1C\x03\x02" +
-		"\x02\x02\x1E\x1F\x03\x02\x02\x02\x1F \x07\x03\x02\x02 \x05\x03\x02\x02" +
-		"\x02!\"\x07\x04\x02\x02\"#\x07\x10\x02\x02#$\x07\x05\x02\x02$%\x05\f\x07" +
-		"\x02%\x07\x03\x02\x02\x02&)\b\x05\x01\x02\')\x07\x10\x02\x02(&\x03\x02" +
-		"\x02\x02(\'\x03\x02\x02\x02)/\x03\x02\x02\x02*+\f\x04\x02\x02+,\x07\x06" +
-		"\x02\x02,.\x07\x10\x02\x02-*\x03\x02\x02\x02.1\x03\x02\x02\x02/-\x03\x02" +
-		"\x02\x02/0\x03\x02\x02\x020\t\x03\x02\x02\x021/\x03\x02\x02\x0224\x07" +
-		"\x07\x02\x0235\x05\f\x07\x0243\x03\x02\x02\x0245\x03\x02\x02\x0256\x03" +
-		"\x02\x02\x0267\x07\x03\x02\x027\v\x03\x02\x02\x0289\b\x07\x01\x029:\x07" +
-		"\n\x02\x02:;\x05\f\x07\x02;<\x07\v\x02\x02<B\x03\x02\x02\x02=B\x05\x12" +
-		"\n\x02>B\x05\x0E\b\x02?B\x07\x10\x02\x02@B\x07\x11\x02\x02A8\x03\x02\x02" +
-		"\x02A=\x03\x02\x02\x02A>\x03\x02\x02\x02A?\x03\x02\x02\x02A@\x03\x02\x02" +
-		"\x02BN\x03\x02\x02\x02CD\f\t\x02\x02DE\x07\x0F\x02\x02EM\x05\f\x07\nF" +
-		"G\f\b\x02\x02GH\x07\b\x02\x02HI\x05\f\x07\x02IJ\x07\t\x02\x02JK\x05\f" +
-		"\x07\tKM\x03\x02\x02\x02LC\x03\x02\x02\x02LF\x03\x02\x02\x02MP\x03\x02" +
-		"\x02\x02NL\x03\x02\x02\x02NO\x03\x02\x02\x02O\r\x03\x02\x02\x02PN\x03" +
-		"\x02\x02\x02QR\x07\n\x02\x02RS\x05\b\x05\x02ST\x07\v\x02\x02TU\x07\f\x02" +
-		"\x02UV\x05\x10\t\x02V\x0F\x03\x02\x02\x02W[\x07\r\x02\x02XZ\x05\x04\x03" +
-		"\x02YX\x03\x02\x02\x02Z]\x03\x02\x02\x02[Y\x03\x02\x02\x02[\\\x03\x02" +
-		"\x02\x02\\_\x03\x02\x02\x02][\x03\x02\x02\x02^`\x05\n\x06\x02_^\x03\x02" +
-		"\x02\x02_`\x03\x02\x02\x02`a\x03\x02\x02\x02ad\x07\x0E\x02\x02bd\x05\f" +
-		"\x07\x02cW\x03\x02\x02\x02cb\x03\x02\x02\x02d\x11\x03\x02\x02\x02ef\x07" +
-		"\x10\x02\x02fg\x07\n\x02\x02gh\x05\x14\v\x02hi\x07\v\x02\x02i\x13\x03" +
-		"\x02\x02\x02jk\b\v\x01\x02kl\x05\f\x07\x02lr\x03\x02\x02\x02mn\f\x04\x02" +
-		"\x02no\x07\x06\x02\x02oq\x05\f\x07\x02pm\x03\x02\x02\x02qt\x03\x02\x02" +
-		"\x02rp\x03\x02\x02\x02rs\x03\x02\x02\x02s\x15\x03\x02\x02\x02tr\x03\x02" +
-		"\x02\x02\x0E\x19\x1D(/4ALN[_cr";
+		"\t\x07\x04\b\t\b\x04\t\t\t\x03\x02\x06\x02\x14\n\x02\r\x02\x0E\x02\x15" +
+		"\x03\x03\x03\x03\x05\x03\x1A\n\x03\x03\x03\x03\x03\x03\x04\x03\x04\x03" +
+		"\x04\x03\x04\x03\x04\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x03\x05\x07" +
+		"\x05)\n\x05\f\x05\x0E\x05,\v\x05\x03\x06\x03\x06\x05\x060\n\x06\x03\x06" +
+		"\x03\x06\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07" +
+		";\n\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x05\x07B\n\x07\x03\x07" +
+		"\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07" +
+		"\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07\x03\x07" +
+		"\x03\x07\x03\x07\x05\x07Y\n\x07\x03\x07\x07\x07\\\n\x07\f\x07\x0E\x07" +
+		"_\v\x07\x03\b\x03\b\x07\bc\n\b\f\b\x0E\bf\v\b\x03\b\x05\bi\n\b\x03\b\x03" +
+		"\b\x05\bm\n\b\x03\t\x03\t\x03\t\x03\t\x03\t\x03\t\x07\tu\n\t\f\t\x0E\t" +
+		"x\v\t\x03\t\x02\x02\x05\b\f\x10\n\x02\x02\x04\x02\x06\x02\b\x02\n\x02" +
+		"\f\x02\x0E\x02\x10\x02\x02\x02\x02\x84\x02\x13\x03\x02\x02\x02\x04\x19" +
+		"\x03\x02\x02\x02\x06\x1D\x03\x02\x02\x02\b\"\x03\x02\x02\x02\n-\x03\x02" +
+		"\x02\x02\fA\x03\x02\x02\x02\x0El\x03\x02\x02\x02\x10n\x03\x02\x02\x02" +
+		"\x12\x14\x05\x04\x03\x02\x13\x12\x03\x02\x02\x02\x14\x15\x03\x02\x02\x02" +
+		"\x15\x13\x03\x02\x02\x02\x15\x16\x03\x02\x02\x02\x16\x03\x03\x02\x02\x02" +
+		"\x17\x1A\x05\x06\x04\x02\x18\x1A\x05\f\x07\x02\x19\x17\x03\x02\x02\x02" +
+		"\x19\x18\x03\x02\x02\x02\x1A\x1B\x03\x02\x02\x02\x1B\x1C\x07\x03\x02\x02" +
+		"\x1C\x05\x03\x02\x02\x02\x1D\x1E\x07\x04\x02\x02\x1E\x1F\x07\x14\x02\x02" +
+		"\x1F \x07\x05\x02\x02 !\x05\f\x07\x02!\x07\x03\x02\x02\x02\"#\b\x05\x01" +
+		"\x02#$\x07\x14\x02\x02$*\x03\x02\x02\x02%&\f\x04\x02\x02&\'\x07\x06\x02" +
+		"\x02\')\x07\x14\x02\x02(%\x03\x02\x02\x02),\x03\x02\x02\x02*(\x03\x02" +
+		"\x02\x02*+\x03\x02\x02\x02+\t\x03\x02\x02\x02,*\x03\x02\x02\x02-/\x07" +
+		"\x07\x02\x02.0\x05\f\x07\x02/.\x03\x02\x02\x02/0\x03\x02\x02\x0201\x03" +
+		"\x02\x02\x0212\x07\x03\x02\x022\v\x03\x02\x02\x0234\b\x07\x01\x0245\x07" +
+		"\b\x02\x0256\x05\f\x07\x0267\x07\t\x02\x027B\x03\x02\x02\x028:\x07\b\x02" +
+		"\x029;\x05\b\x05\x02:9\x03\x02\x02\x02:;\x03\x02\x02\x02;<\x03\x02\x02" +
+		"\x02<=\x07\t\x02\x02=>\x07\x10\x02\x02>B\x05\x0E\b\x02?B\x07\x14\x02\x02" +
+		"@B\x07\x15\x02\x02A3\x03\x02\x02\x02A8\x03\x02\x02\x02A?\x03\x02\x02\x02" +
+		"A@\x03\x02\x02\x02B]\x03\x02\x02\x02CD\f\n\x02\x02DE\x07\n\x02\x02E\\" +
+		"\x05\f\x07\vFG\f\t\x02\x02GH\x07\v\x02\x02H\\\x05\f\x07\nIJ\f\b\x02\x02" +
+		"JK\x07\f\x02\x02K\\\x05\f\x07\tLM\f\x07\x02\x02MN\x07\r\x02\x02N\\\x05" +
+		"\f\x07\bOP\f\x06\x02\x02PQ\x07\x0E\x02\x02QR\x05\f\x07\x02RS\x07\x0F\x02" +
+		"\x02ST\x05\f\x07\x07T\\\x03\x02\x02\x02UV\f\v\x02\x02VX\x07\b\x02\x02" +
+		"WY\x05\x10\t\x02XW\x03\x02\x02\x02XY\x03\x02\x02\x02YZ\x03\x02\x02\x02" +
+		"Z\\\x07\t\x02\x02[C\x03\x02\x02\x02[F\x03\x02\x02\x02[I\x03\x02\x02\x02" +
+		"[L\x03\x02\x02\x02[O\x03\x02\x02\x02[U\x03\x02\x02\x02\\_\x03\x02\x02" +
+		"\x02][\x03\x02\x02\x02]^\x03\x02\x02\x02^\r\x03\x02\x02\x02_]\x03\x02" +
+		"\x02\x02`d\x07\x11\x02\x02ac\x05\x04\x03\x02ba\x03\x02\x02\x02cf\x03\x02" +
+		"\x02\x02db\x03\x02\x02\x02de\x03\x02\x02\x02eh\x03\x02\x02\x02fd\x03\x02" +
+		"\x02\x02gi\x05\n\x06\x02hg\x03\x02\x02\x02hi\x03\x02\x02\x02ij\x03\x02" +
+		"\x02\x02jm\x07\x12\x02\x02km\x05\f\x07\x02l`\x03\x02\x02\x02lk\x03\x02" +
+		"\x02\x02m\x0F\x03\x02\x02\x02no\b\t\x01\x02op\x05\f\x07\x02pv\x03\x02" +
+		"\x02\x02qr\f\x04\x02\x02rs\x07\x06\x02\x02su\x05\f\x07\x02tq\x03\x02\x02" +
+		"\x02ux\x03\x02\x02\x02vt\x03\x02\x02\x02vw\x03\x02\x02\x02w\x11\x03\x02" +
+		"\x02\x02xv\x03\x02\x02\x02\x0F\x15\x19*/:AX[]dhlv";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!yatjsParser.__ATN) {
@@ -779,6 +816,14 @@ export class ProgramContext extends ParserRuleContext {
 			listener.exitProgram(this);
 		}
 	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitProgram) {
+			return visitor.visitProgram(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
 }
 
 
@@ -806,6 +851,14 @@ export class StatementContext extends ParserRuleContext {
 			listener.exitStatement(this);
 		}
 	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitStatement) {
+			return visitor.visitStatement(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
 }
 
 
@@ -831,6 +884,14 @@ export class DeclarationContext extends ParserRuleContext {
 			listener.exitDeclaration(this);
 		}
 	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitDeclaration) {
+			return visitor.visitDeclaration(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
 }
 
 
@@ -838,7 +899,7 @@ export class Param_listContext extends ParserRuleContext {
 	public param_list(): Param_listContext | undefined {
 		return this.tryGetRuleContext(0, Param_listContext);
 	}
-	public ID(): TerminalNode | undefined { return this.tryGetToken(yatjsParser.ID, 0); }
+	public ID(): TerminalNode { return this.getToken(yatjsParser.ID, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -854,6 +915,14 @@ export class Param_listContext extends ParserRuleContext {
 	public exitRule(listener: yatjsListener): void {
 		if (listener.exitParam_list) {
 			listener.exitParam_list(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitParam_list) {
+			return visitor.visitParam_list(this);
+		} else {
+			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -880,10 +949,89 @@ export class Return_statementContext extends ParserRuleContext {
 			listener.exitReturn_statement(this);
 		}
 	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitReturn_statement) {
+			return visitor.visitReturn_statement(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
 }
 
 
 export class ExpressionContext extends ParserRuleContext {
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return yatjsParser.RULE_expression; }
+	public copyFrom(ctx: ExpressionContext): void {
+		super.copyFrom(ctx);
+	}
+}
+export class Brackets_expressionContext extends ExpressionContext {
+	public expression(): ExpressionContext {
+		return this.getRuleContext(0, ExpressionContext);
+	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterBrackets_expression) {
+			listener.enterBrackets_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitBrackets_expression) {
+			listener.exitBrackets_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitBrackets_expression) {
+			return visitor.visitBrackets_expression(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Function_callContext extends ExpressionContext {
+	public expression(): ExpressionContext {
+		return this.getRuleContext(0, ExpressionContext);
+	}
+	public expression_list(): Expression_listContext | undefined {
+		return this.tryGetRuleContext(0, Expression_listContext);
+	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterFunction_call) {
+			listener.enterFunction_call(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitFunction_call) {
+			listener.exitFunction_call(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitFunction_call) {
+			return visitor.visitFunction_call(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Mul_expressionContext extends ExpressionContext {
 	public expression(): ExpressionContext[];
 	public expression(i: number): ExpressionContext;
 	public expression(i?: number): ExpressionContext | ExpressionContext[] {
@@ -893,47 +1041,182 @@ export class ExpressionContext extends ParserRuleContext {
 			return this.getRuleContext(i, ExpressionContext);
 		}
 	}
-	public OP(): TerminalNode | undefined { return this.tryGetToken(yatjsParser.OP, 0); }
-	public function_call(): Function_callContext | undefined {
-		return this.tryGetRuleContext(0, Function_callContext);
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
 	}
-	public function_declaration(): Function_declarationContext | undefined {
-		return this.tryGetRuleContext(0, Function_declarationContext);
-	}
-	public ID(): TerminalNode | undefined { return this.tryGetToken(yatjsParser.ID, 0); }
-	public NUMBER(): TerminalNode | undefined { return this.tryGetToken(yatjsParser.NUMBER, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return yatjsParser.RULE_expression; }
 	// @Override
 	public enterRule(listener: yatjsListener): void {
-		if (listener.enterExpression) {
-			listener.enterExpression(this);
+		if (listener.enterMul_expression) {
+			listener.enterMul_expression(this);
 		}
 	}
 	// @Override
 	public exitRule(listener: yatjsListener): void {
-		if (listener.exitExpression) {
-			listener.exitExpression(this);
+		if (listener.exitMul_expression) {
+			listener.exitMul_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitMul_expression) {
+			return visitor.visitMul_expression(this);
+		} else {
+			return visitor.visitChildren(this);
 		}
 	}
 }
-
-
-export class Function_declarationContext extends ParserRuleContext {
-	public param_list(): Param_listContext {
-		return this.getRuleContext(0, Param_listContext);
+export class Div_expressionContext extends ExpressionContext {
+	public expression(): ExpressionContext[];
+	public expression(i: number): ExpressionContext;
+	public expression(i?: number): ExpressionContext | ExpressionContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExpressionContext);
+		} else {
+			return this.getRuleContext(i, ExpressionContext);
+		}
 	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterDiv_expression) {
+			listener.enterDiv_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitDiv_expression) {
+			listener.exitDiv_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitDiv_expression) {
+			return visitor.visitDiv_expression(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Add_expressionContext extends ExpressionContext {
+	public expression(): ExpressionContext[];
+	public expression(i: number): ExpressionContext;
+	public expression(i?: number): ExpressionContext | ExpressionContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExpressionContext);
+		} else {
+			return this.getRuleContext(i, ExpressionContext);
+		}
+	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterAdd_expression) {
+			listener.enterAdd_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitAdd_expression) {
+			listener.exitAdd_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitAdd_expression) {
+			return visitor.visitAdd_expression(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Sub_expressionContext extends ExpressionContext {
+	public expression(): ExpressionContext[];
+	public expression(i: number): ExpressionContext;
+	public expression(i?: number): ExpressionContext | ExpressionContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExpressionContext);
+		} else {
+			return this.getRuleContext(i, ExpressionContext);
+		}
+	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterSub_expression) {
+			listener.enterSub_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitSub_expression) {
+			listener.exitSub_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitSub_expression) {
+			return visitor.visitSub_expression(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Three_expressionContext extends ExpressionContext {
+	public expression(): ExpressionContext[];
+	public expression(i: number): ExpressionContext;
+	public expression(i?: number): ExpressionContext | ExpressionContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(ExpressionContext);
+		} else {
+			return this.getRuleContext(i, ExpressionContext);
+		}
+	}
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterThree_expression) {
+			listener.enterThree_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitThree_expression) {
+			listener.exitThree_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitThree_expression) {
+			return visitor.visitThree_expression(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Function_declarationContext extends ExpressionContext {
 	public function_body(): Function_bodyContext {
 		return this.getRuleContext(0, Function_bodyContext);
 	}
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
+	public param_list(): Param_listContext | undefined {
+		return this.tryGetRuleContext(0, Param_listContext);
 	}
-	// @Override
-	public get ruleIndex(): number { return yatjsParser.RULE_function_declaration; }
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
 	// @Override
 	public enterRule(listener: yatjsListener): void {
 		if (listener.enterFunction_declaration) {
@@ -944,6 +1227,68 @@ export class Function_declarationContext extends ParserRuleContext {
 	public exitRule(listener: yatjsListener): void {
 		if (listener.exitFunction_declaration) {
 			listener.exitFunction_declaration(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitFunction_declaration) {
+			return visitor.visitFunction_declaration(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Id_expressionContext extends ExpressionContext {
+	public ID(): TerminalNode { return this.getToken(yatjsParser.ID, 0); }
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterId_expression) {
+			listener.enterId_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitId_expression) {
+			listener.exitId_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitId_expression) {
+			return visitor.visitId_expression(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+export class Number_expressionContext extends ExpressionContext {
+	public NUMBER(): TerminalNode { return this.getToken(yatjsParser.NUMBER, 0); }
+	constructor(ctx: ExpressionContext) {
+		super(ctx.parent, ctx.invokingState);
+		this.copyFrom(ctx);
+	}
+	// @Override
+	public enterRule(listener: yatjsListener): void {
+		if (listener.enterNumber_expression) {
+			listener.enterNumber_expression(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: yatjsListener): void {
+		if (listener.exitNumber_expression) {
+			listener.exitNumber_expression(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitNumber_expression) {
+			return visitor.visitNumber_expression(this);
+		} else {
+			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -982,29 +1327,12 @@ export class Function_bodyContext extends ParserRuleContext {
 			listener.exitFunction_body(this);
 		}
 	}
-}
-
-
-export class Function_callContext extends ParserRuleContext {
-	public ID(): TerminalNode { return this.getToken(yatjsParser.ID, 0); }
-	public expression_list(): Expression_listContext {
-		return this.getRuleContext(0, Expression_listContext);
-	}
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
 	// @Override
-	public get ruleIndex(): number { return yatjsParser.RULE_function_call; }
-	// @Override
-	public enterRule(listener: yatjsListener): void {
-		if (listener.enterFunction_call) {
-			listener.enterFunction_call(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: yatjsListener): void {
-		if (listener.exitFunction_call) {
-			listener.exitFunction_call(this);
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitFunction_body) {
+			return visitor.visitFunction_body(this);
+		} else {
+			return visitor.visitChildren(this);
 		}
 	}
 }
@@ -1032,6 +1360,14 @@ export class Expression_listContext extends ParserRuleContext {
 	public exitRule(listener: yatjsListener): void {
 		if (listener.exitExpression_list) {
 			listener.exitExpression_list(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: yatjsVisitor<Result>): Result {
+		if (visitor.visitExpression_list) {
+			return visitor.visitExpression_list(this);
+		} else {
+			return visitor.visitChildren(this);
 		}
 	}
 }

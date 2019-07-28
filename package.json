@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "yjs": "./dist/cmd.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "gen": "antlr4ts ./src/yatjs.g4 -o ./src/lr",
+    "test": "node ./index.js",
+    "gen": "antlr4ts ./src/yatjs.g4 -visitor -o ./src/lr",
     "start": "tsc --watch",
     "build": "tsc"
   },
